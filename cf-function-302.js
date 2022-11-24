@@ -6,7 +6,7 @@ function handler(event) {
     var request = event.request;
     var headers = request.headers;
     var host = request.headers.host.value;
-    var newurl = 'https://doto.eu/'; // Change the redirect URL to your choice
+    var newurl = 'https://$URL$/'; // Change the redirect URL to your choice
     var country = [ 'AD', 'AL', 'AT', 'AX', 'BA', 'BE', 'BG', 'BY', 'CH', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FO', 'FR', 'GB', 'GG', 'GI', 'GR', 'HR', 'HU', 'IE', 'IM', 'IS', 'IT', 'JE', 'LI', 'LT', 'LU', 'LV', 'MC', 'MD', 'ME', 'MK', 'MT', 'NL', 'NO', 'PL', 'PT', 'RO', 'RS', 'RU', 'SE', 'SI', 'SJ', 'SK', 'SM', 'TR', 'UA', 'VA', 'XK' ];
 
     if (headers['cloudfront-viewer-country']) {
