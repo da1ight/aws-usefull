@@ -1,6 +1,6 @@
 function handler(event) {
   var authHeaders = event.request.headers.authorization;
-
+  var host = request.headers.host.value;
   // The Base64-encoded Auth string that should be present.
   // It is an encoding of `Basic base64([username]:[password])`
   // The username and password are:
@@ -11,6 +11,11 @@ function handler(event) {
   // If an Authorization header is supplied and it's an exact match, pass the
   // request on through to CF/the origin without any modification.
   if (authHeaders && authHeaders.value === expected) {
+    return event.request;
+  }
+
+  // Exclude api requests
+  if (host === "localhost") {
     return event.request;
   }
 
