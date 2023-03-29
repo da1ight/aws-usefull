@@ -1,6 +1,8 @@
 function handler(event) {
   var authHeaders = event.request.headers.authorization;
-  var host = request.headers.host.value;
+  var host = event.request.headers.host;
+  var request = event.request;
+
   // The Base64-encoded Auth string that should be present.
   // It is an encoding of `Basic base64([username]:[password])`
   // The username and password are:
@@ -11,12 +13,12 @@ function handler(event) {
   // If an Authorization header is supplied and it's an exact match, pass the
   // request on through to CF/the origin without any modification.
   if (authHeaders && authHeaders.value === expected) {
-    return event.request;
+    return request;
   }
 
   // Exclude api requests
-  if (host === "localhost") {
-    return event.request;
+  if (host.value === "api.doto.com") {
+    return request;
   }
 
   // But if we get here, we must either be missing the auth header or the
@@ -27,7 +29,7 @@ function handler(event) {
     statusDescription: "Unauthorized",
     headers: {
       "www-authenticate": {
-        value: 'Basic realm="Enter credentials for this super secure site"',
+        value: 'Basic realm="Restricted Area"',
       },
     },
   };
